@@ -5,11 +5,14 @@
 
     <p>{{ $event->description }}</p>
 
-    <a href="{{ route('events.edit', $event) }}">Modifier</a> |
-    <form action="{{ route('events.destroy', $event) }}" method="POST">
+    <a class="btn btn-info" href="{{ route('events.edit', $event) }}">Modifier</a>
+    <form action="{{ route('events.destroy', $event) }}" method="POST" class="inline-block">
         @csrf
         @method('DELETE')
-        <input type="submit" value="Supprimer">
+        <input class="btn btn-danger" type="submit" value="Supprimer">
     </form>
-    <a href="{{ route('home') }}">Tous les évènements</a>
+
+    <hr>
+
+    <p><a href="{{ route('home') }}">Tous les évènements</a></p>
 @endsection

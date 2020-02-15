@@ -3,15 +3,34 @@
 @section('content')
     <h1> Editer l'évènement #{{ $event->id }}</h1>
 
-    <form action="{{ route('events.update', $event) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <input type="text" name="title" placeholder="Titre de l'évènement" value="{{ old('title') ?? $event->title }}"><br>
-        {!! $errors->first('title', '<p class="error">:message</p>') !!}
-        <textarea name="description" id="" cols="30" rows="10" placeholder="Dscription de l'évènement">{{ old('title') ?? $event->description }}</textarea><br>
-        {!! $errors->first('description', '<p class="error">:message</p>') !!}
-        <input type="submit" value="Modifier un évènement">
-    </form>
+    <div class="container">
+                <form action="{{ route('events.update', $event) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label for="title">Titre</label>
+                            <input type="text" id="title" name="title" value="{{ old('title') ?? $event->title }}" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" placeholder="Titre de l'élèvenement">
+                        </div>
+                        @error('title')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
 
+                    <div class="form-group">
+                        <label for="description" class="control-label">Description</div>
+                        <textarea id="description" name="description" placeholder="Description de l'élèvenement" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">{{ old('description') ?? $event->description }}</textarea>
+                        @error('description')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block mt-3" type="submit">Modifier l'évènement</button>
+                    <div>
+                </form>
     <a href="{{ route('home') }}">Annuler</a>
+    </div>
+
 @endsection

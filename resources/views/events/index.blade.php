@@ -3,7 +3,6 @@
 @section('content')
     <h1>{{ $events->count() }}  Evènements</h1>
 
-    <a href="{{ route('events.create') }}">Créer un évènement</a>
 
     @if(count($events) > 0)
         <ul>
