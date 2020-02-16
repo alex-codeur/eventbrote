@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                         <label for="description" class="control-label">Description</div>
-                        <textarea id="description" name="description" placeholder="Description de l'élèvenement" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">{{ old('description') }}</textarea>
+                        <textarea id="description" cols="30" rows="10" name="description" placeholder="Description de l'élèvenement" class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}">{{ old('description') }}</textarea>
                         @error('description')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

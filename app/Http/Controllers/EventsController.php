@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateEventFormRequest;
 
 class EventsController extends Controller
 {
@@ -14,7 +15,7 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
+        $events = Event::paginate(2);
 
         return view('events.index', compact('events'));
     }
@@ -43,6 +44,9 @@ class EventsController extends Controller
         ]);
 
         Event::create(['title' => $request->title, 'description' => $request-> description]);
+
+        session()->flash('notification.message', 'Evènement créé avec succès !');
+        session()->flash('notification.type', 'success');
         
         return redirect()->route('home');
     }
@@ -90,6 +94,9 @@ class EventsController extends Controller
         $event = Event::findOrFail($id);
 
         $event->update(['title' => $request->title, 'description' => $request-> description]);
+
+        session()->flash('notification.message', 'Evènement #' . $event->id . ' modifié avec succès !');
+        session()->flash('notification.type', 'success');
         
         return redirect()->route('events.show', ['event' => $event->id]);
     }
@@ -103,6 +110,9 @@ class EventsController extends Controller
     public function destroy($id)
     {
         Event::destroy($id);
+
+        session()->flash('notification.message', 'Evènement #' . $id . ' supprimé avec succès !');
+        session()->flash('notification.type', 'danger');
 
         return redirect()->route('home');
     }
